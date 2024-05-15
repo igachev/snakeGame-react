@@ -14,14 +14,16 @@ function App() {
   
   let [position,setPosition] = useState<Position>({bottom:400,left:550})
   let [timer,setTimer] = useState<number>()
+  let [isMovingUp,setIsMovingUp] = useState<boolean>(false)
   
   // useEffect() for moving the snake up
   useEffect(() => {
 
     function moveUp(e: KeyboardEvent) {
       e.preventDefault()
+
       if(e.key === 'ArrowUp') {
-        
+       
        let repeatedMovement = () => {
         let snakeHead = document.querySelector('.snake-head') as HTMLDivElement
         let bottom = getComputedStyle(snakeHead).getPropertyValue('bottom')
@@ -29,19 +31,25 @@ function App() {
         setPosition((oldPosition) => ({...oldPosition, bottom: updateBottom}))
         }
 
+        if(isMovingUp) {
+          return;
+        } 
         let timerAction = setInterval(repeatedMovement,500)
         setTimer(timerAction)
-      }
+        setIsMovingUp(true)
+    }
       else {
         clearInterval(timer)
       }
-      
+    
     }
-
-    document.addEventListener("keydown",moveUp)
+      
+      document.addEventListener("keyup",moveUp)
+    
     return () => {
-      document.removeEventListener("keydown",moveUp)
+      document.removeEventListener("keyup",moveUp)
      // clearInterval(timer)
+     
     }
   },[position])
 
