@@ -18,7 +18,7 @@ function App() {
   let [position,setPosition] = useState<Position>({bottom:400,left:550})
 
   const [applePosition,setApplePosition] = useState<Position>(() => {
-    
+    // initial apple position
     let randomBottom = Math.floor((Math.random() * 700));
     let adjustBottom = Math.round(randomBottom / 50) * 50;
     let randomLeft = Math.floor((Math.random() * 1150));
@@ -82,7 +82,7 @@ function App() {
      <Container>
      <AllSquares />
      <SnakeHead />
-     <Apple applePosition={applePosition} />
+     <Apple position={position} applePosition={applePosition} setApplePosition={setApplePosition} />
      </Container>
     </div>
   )

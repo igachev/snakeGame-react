@@ -24,7 +24,6 @@ export function useMovement(
 
           const bottom = getComputedStyle(snakeHead).getPropertyValue('bottom');
           let left = getComputedStyle(snakeHead).getPropertyValue('left');
-          console.log(left)
 
           if(direction === 'up') {
              updateBottom = parseInt(bottom) + 50;
@@ -36,9 +35,7 @@ export function useMovement(
           }
 
           else if(direction === 'left') {
-            
             updateLeft = parseInt(left) - 50;
-            console.log(updateLeft)
             setPosition((oldPosition: Position) => ({...oldPosition, left: updateLeft}))
           }
 
