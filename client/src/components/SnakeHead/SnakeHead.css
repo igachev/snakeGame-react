@@ -3,8 +3,18 @@
     width: 50px;
     height: 50px;
     background-color: lightgreen;
-    border: 1px solid darkslategray;
+   
     position: absolute;
     bottom: 400px;
     left: 550px;
+}
+
+.snake-part {
+    width: 50px;
+    height: 50px;
+    background-color: lightgreen;
+    border: 1px solid darkseagreen; 
+    position: absolute; 
+    bottom: 0;
+    left: 0;
 }
