@@ -6,11 +6,13 @@ import "./SnakeHead.css"
 interface SnakeHeadProps {
     position: Position;
     setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
+    snakeLength: Position[];
   }
 
 export default function SnakeHead({
     position,
-    setGameOver
+    setGameOver,
+    snakeLength
 }: SnakeHeadProps) {
 
     // if the head of the snake touch any of the outside bounds the game will over
@@ -22,8 +24,19 @@ export default function SnakeHead({
         }
     }
 
+    // check for collision between head and body and if any the game will end
+    function onCollide() {
+        snakeLength.forEach((snakePart) => {
+            if(snakePart.bottom === position.bottom && snakePart.left === position.left) {
+                console.log('collide')
+                setGameOver(true)
+            }
+        })
+    }
+
     useEffect(() => {
-        onCrossOutsideBounds()
+        onCrossOutsideBounds(), 
+        onCollide()
     },[position]);
 
     return (

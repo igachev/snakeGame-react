@@ -8,8 +8,7 @@ export function useMovement(
   timerRef: React.MutableRefObject<number | undefined>,
   setSnakeLength: React.Dispatch<React.SetStateAction<Position[]>>,
   setPreviousDirection: React.Dispatch<React.SetStateAction<string>>,
-  previousDirection: string,
-  setGameOver: React.Dispatch<React.SetStateAction<boolean>>
+  previousDirection: string
 ) {
 
   function move(e: KeyboardEvent) {
@@ -84,10 +83,11 @@ export function useMovement(
         setSnakeLength((oldPositions) => {
           const newPositions = [...oldPositions];
           if (newPositions.length > 0) {
+            // the last item will move to the previous item
             for (let i = newPositions.length - 1; i > 0; i--) {
               newPositions[i] = { ...newPositions[i - 1] };
             }
-            // first element of snake body will be equal to the position of the head
+            // first element of snake body will become equal to the position of the head
             newPositions[0] = { bottom, left };
             
           }

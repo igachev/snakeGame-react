@@ -36,10 +36,10 @@ function App() {
   const [previousDirection,setPreviousDirection] = useState<string>('')
 
   const timerRef = useRef<number | undefined>();
-  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,setGameOver)
-  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,setGameOver)
-  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,setGameOver)
-  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,setGameOver)
+  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
+  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
+  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
+  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
   
   // useEffect() for moving the snake up
   useEffect(() => {
@@ -89,7 +89,7 @@ function App() {
      {!gameOver ? (
       <Container>
       <AllSquares />
-      <SnakeHead position={position} setGameOver={setGameOver} />
+      <SnakeHead position={position} setGameOver={setGameOver} snakeLength={snakeLength} />
       <SnakeBody snakeLength={snakeLength} />
       <Apple 
       position={position} 
