@@ -29,19 +29,19 @@ function App() {
     }
   });
 
+  const [snakeLength, setSnakeLength] = useState<Position[]>([]);
+
   const timerRef = useRef<number | undefined>();
-  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef)
-  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef)
-  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef)
-  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef)
- 
+  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength)
+  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength)
+  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength)
+  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef,setSnakeLength)
   
   // useEffect() for moving the snake up
   useEffect(() => {
     document.addEventListener("keydown", moveUp);
     return () => {
       document.removeEventListener("keydown", moveUp);
-      //clearInterval(timerRef.current);
     };
   }, [position]);
 
@@ -76,13 +76,28 @@ function App() {
     snakeHead.style.left = `${position.left}px`;
   }, [position]);
 
+  
+ 
+
   return (
     <div>
       <h1>snake game</h1>
      <Container>
      <AllSquares />
      <SnakeHead />
-     <Apple position={position} applePosition={applePosition} setApplePosition={setApplePosition} />
+     {snakeLength.map((pos, index) => (
+          <div
+            key={index}
+            className="snake-part"
+            style={{ bottom: `${pos.bottom}px`, left: `${pos.left}px` }}
+          />
+        ))}
+     <Apple 
+     position={position} 
+     applePosition={applePosition} 
+     setApplePosition={setApplePosition} 
+     setSnakeLength={setSnakeLength}
+     />
      </Container>
     </div>
   )
