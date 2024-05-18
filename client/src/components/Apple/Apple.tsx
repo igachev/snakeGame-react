@@ -7,12 +7,14 @@ interface apple {
     position: Position;
     applePosition: {bottom: number; left: number;};
     setApplePosition: React.Dispatch<React.SetStateAction<Position>>;
+    setSnakeLength: React.Dispatch<React.SetStateAction<Position[]>>;
 }
 
 export default function Apple({
     position,
     applePosition,
-    setApplePosition
+    setApplePosition,
+    setSnakeLength
 }: apple) {
 
     // updates the apple DOM element when apple position changes
@@ -44,6 +46,7 @@ export default function Apple({
     let adjustLeft = Math.round(randomLeft / 50) * 50;
 
     setApplePosition((oldPosition) => ({...oldPosition, bottom: adjustBottom, left: adjustLeft}))
+    setSnakeLength((oldLength) => [...oldLength,{bottom: snakeHeadBottom,left: snakeHeadLeft}])
     }
     }
 
