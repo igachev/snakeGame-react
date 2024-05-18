@@ -8,7 +8,8 @@ export function useMovement(
   timerRef: React.MutableRefObject<number | undefined>,
   setSnakeLength: React.Dispatch<React.SetStateAction<Position[]>>,
   setPreviousDirection: React.Dispatch<React.SetStateAction<string>>,
-  previousDirection: string
+  previousDirection: string,
+  setGameOver: React.Dispatch<React.SetStateAction<boolean>>
 ) {
 
   function move(e: KeyboardEvent) {

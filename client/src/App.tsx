@@ -6,6 +6,7 @@ import Container from './components/Container/Container'
 import SnakeHead from './components/SnakeHead/SnakeHead'
 import { useMovement } from './hooks/useMovement'
 import Apple from './components/Apple/Apple'
+import GameOver from './components/GameOver/GameOver'
 
 
 export interface Position {
@@ -16,6 +17,7 @@ export interface Position {
 function App() {
   
   let [position,setPosition] = useState<Position>({bottom:400,left:550})
+  const [gameOver,setGameOver] = useState<boolean>(false)
 
   const [applePosition,setApplePosition] = useState<Position>(() => {
     // initial apple position
@@ -33,10 +35,10 @@ function App() {
   const [previousDirection,setPreviousDirection] = useState<string>('')
 
   const timerRef = useRef<number | undefined>();
-  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
-  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
-  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
-  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
+  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,setGameOver)
+  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,setGameOver)
+  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,setGameOver)
+  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,setGameOver)
   
   // useEffect() for moving the snake up
   useEffect(() => {
@@ -83,23 +85,25 @@ function App() {
   return (
     <div>
       <h1>snake game</h1>
-     <Container>
-     <AllSquares />
-     <SnakeHead />
-     {snakeLength.map((pos, index) => (
-          <div
-            key={index}
-            className="snake-part"
-            style={{ bottom: `${pos.bottom}px`, left: `${pos.left}px` }}
-          />
-        ))}
-     <Apple 
-     position={position} 
-     applePosition={applePosition} 
-     setApplePosition={setApplePosition} 
-     setSnakeLength={setSnakeLength}
-     />
-     </Container>
+     {!gameOver ? (
+      <Container>
+      <AllSquares />
+      <SnakeHead position={position} setGameOver={setGameOver} />
+      {snakeLength.map((pos, index) => (
+           <div
+             key={index}
+             className="snake-part"
+             style={{ bottom: `${pos.bottom}px`, left: `${pos.left}px` }}
+           />
+         ))}
+      <Apple 
+      position={position} 
+      applePosition={applePosition} 
+      setApplePosition={setApplePosition} 
+      setSnakeLength={setSnakeLength}
+      />
+      </Container>
+     ) : <GameOver />}
     </div>
   )
 }
