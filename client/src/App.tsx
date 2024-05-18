@@ -30,12 +30,13 @@ function App() {
   });
 
   const [snakeLength, setSnakeLength] = useState<Position[]>([]);
+  const [previousDirection,setPreviousDirection] = useState<string>('')
 
   const timerRef = useRef<number | undefined>();
-  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength)
-  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength)
-  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength)
-  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef,setSnakeLength)
+  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
+  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
+  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
+  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection)
   
   // useEffect() for moving the snake up
   useEffect(() => {

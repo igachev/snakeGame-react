@@ -6,7 +6,9 @@ export function useMovement(
   direction: string,
   setPosition: React.Dispatch<React.SetStateAction<Position>>,
   timerRef: React.MutableRefObject<number | undefined>,
-  setSnakeLength: React.Dispatch<React.SetStateAction<Position[]>>
+  setSnakeLength: React.Dispatch<React.SetStateAction<Position[]>>,
+  setPreviousDirection: React.Dispatch<React.SetStateAction<string>>,
+  previousDirection: string
 ) {
 
   function move(e: KeyboardEvent) {
@@ -25,21 +27,56 @@ export function useMovement(
         let left = parseInt(getComputedStyle(snakeHead).getPropertyValue('left'));
 
         if (direction === 'up') {
+          // the previousDirection "if" prevents going back in opposite direction
+          if(previousDirection == 'down') {
+            updateBottom = bottom - 50;
+            setPosition((oldPosition: Position) => ({ ...oldPosition, bottom: updateBottom }));
+            snakeHead.style.transform = 'rotate(180deg)';
+          }
+          else {
           updateBottom = bottom + 50;
           setPosition((oldPosition: Position) => ({ ...oldPosition, bottom: updateBottom }));
           snakeHead.style.transform = 'rotate(0deg)';
+          setPreviousDirection((oldDirection) => oldDirection !== 'up' ? 'up' : oldDirection)
+          } 
         } else if (direction === 'down') {
-          updateBottom = bottom - 50;
-          setPosition((oldPosition: Position) => ({ ...oldPosition, bottom: updateBottom }));
-          snakeHead.style.transform = 'rotate(180deg)';
+          // the previousDirection "if" prevents going back in opposite direction
+          if(previousDirection === 'up') {
+            updateBottom = bottom + 50;
+            setPosition((oldPosition: Position) => ({ ...oldPosition, bottom: updateBottom }));
+            snakeHead.style.transform = 'rotate(0deg)';
+          }
+          else {
+            updateBottom = bottom - 50;
+            setPosition((oldPosition: Position) => ({ ...oldPosition, bottom: updateBottom }));
+            snakeHead.style.transform = 'rotate(180deg)';
+            setPreviousDirection((oldDirection) => oldDirection !== 'down' ? 'down' : oldDirection)
+          } 
         } else if (direction === 'left') {
-          updateLeft = left - 50;
-          setPosition((oldPosition: Position) => ({ ...oldPosition, left: updateLeft }));
-          snakeHead.style.transform = 'rotate(270deg)';
-        } else if (direction === 'right') {
-          updateLeft = left + 50;
-          setPosition((oldPosition: Position) => ({ ...oldPosition, left: updateLeft }));
-          snakeHead.style.transform = 'rotate(90deg)';
+          // the previousDirection "if" prevents going back in opposite direction
+          if(previousDirection === 'right') {
+            updateLeft = left + 50;
+            setPosition((oldPosition: Position) => ({ ...oldPosition, left: updateLeft }));
+          }
+          else {
+            updateLeft = left - 50;
+            setPosition((oldPosition: Position) => ({ ...oldPosition, left: updateLeft }));
+            snakeHead.style.transform = 'rotate(270deg)';
+            setPreviousDirection((oldDirection) => oldDirection !== 'left' ? 'left' : oldDirection)
+          } 
+        } else if (direction === 'right' ) {
+          // the previousDirection "if" prevents going back in opposite direction
+          if(previousDirection === 'left') {
+            updateLeft = left - 50;
+            setPosition((oldPosition: Position) => ({ ...oldPosition, left: updateLeft }));
+          }
+          else {
+            updateLeft = left + 50;
+            setPosition((oldPosition: Position) => ({ ...oldPosition, left: updateLeft }));
+            snakeHead.style.transform = 'rotate(90deg)';
+            setPreviousDirection((oldDirection) => oldDirection !== 'right' ? 'right' : oldDirection)
+          }
+          
         }
 
         // Update the snake parts
