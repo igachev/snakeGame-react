@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import "./Apple.css"
 import { Position } from "../../App";
 
-interface apple {
+interface AppleProps {
     position: Position;
     applePosition: {bottom: number; left: number;};
     setApplePosition: React.Dispatch<React.SetStateAction<Position>>;
@@ -15,7 +15,7 @@ export default function Apple({
     applePosition,
     setApplePosition,
     setSnakeLength
-}: apple) {
+}: AppleProps) {
 
     // updates the apple DOM element when apple position changes
     useEffect(() => {

@@ -27,10 +27,8 @@ export default function SnakeHead({
     },[position]);
 
     return (
-           <div className="snake-container">
             <div className="snake-head">
                
-            </div>
-            </div>
+            </div> 
     )
 }
