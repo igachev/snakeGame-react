@@ -35,9 +35,12 @@ export default function SnakeHead({
     }
 
     useEffect(() => {
-        onCrossOutsideBounds(), 
-        onCollide()
+        onCrossOutsideBounds() 
     },[position]);
+
+    useEffect(() => {
+        onCollide()
+    },[position])
 
     return (
             <div className="snake-head">

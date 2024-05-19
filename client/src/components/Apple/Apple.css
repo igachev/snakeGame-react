@@ -5,5 +5,6 @@
     background-color: red;
     border: 1px solid darkslategray;
     position: absolute;
-    
+    font-size: 30px;
+    text-align: center;
 }

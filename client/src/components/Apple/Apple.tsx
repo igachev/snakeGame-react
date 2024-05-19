@@ -48,12 +48,19 @@ export default function Apple({
     setApplePosition((oldPosition) => ({...oldPosition, bottom: adjustBottom, left: adjustLeft}))
     setSnakeLength((oldLength) => [...oldLength,{bottom: snakeHeadBottom,left: snakeHeadLeft}])
     }
+    };
+
+    // generate random fruit
+    function randomFruit() {
+        const fruits = ['&#127822;','&#127823;','&#127824;','&#127817;','&#127820;','&#127826;','&#127827;','&#129373;']
+        let randomIndex = Math.floor(Math.random() * fruits.length)
+        return fruits[randomIndex]
     }
 
 
     return (
-        <div className="apple">
-        
+        <div className="apple" dangerouslySetInnerHTML={{ __html: randomFruit() }}>
+       
         </div>
     )
 }
