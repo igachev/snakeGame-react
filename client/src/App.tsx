@@ -19,6 +19,7 @@ function App() {
   
   let [position,setPosition] = useState<Position>({bottom:400,left:550})
   const [gameOver,setGameOver] = useState<boolean>(false)
+  const [points,setPoints] = useState<number>(0)
 
   const [applePosition,setApplePosition] = useState<Position>(() => {
     // initial apple position
@@ -86,6 +87,7 @@ function App() {
   return (
     <div>
       <h1>snake game</h1>
+      <h3>Points: {points}</h3>
      {!gameOver ? (
       <Container>
       <AllSquares />
@@ -96,6 +98,7 @@ function App() {
       applePosition={applePosition} 
       setApplePosition={setApplePosition} 
       setSnakeLength={setSnakeLength}
+      setPoints={setPoints}
       />
       </Container>
      ) : <GameOver />}
