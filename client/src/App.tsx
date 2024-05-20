@@ -8,6 +8,7 @@ import { useMovement } from './hooks/useMovement'
 import Apple from './components/Apple/Apple'
 import GameOver from './components/GameOver/GameOver'
 import SnakeBody from './components/SnakeBody/SnakeBody'
+import Loader from './components/Loader/Loader'
 
 
 export interface Position {
@@ -17,12 +18,13 @@ export interface Position {
 
 function App() {
   
-  let [position,setPosition] = useState<Position>({bottom:400,left:550})
+  const [position,setPosition] = useState<Position>({bottom:400,left:550})
   const [gameOver,setGameOver] = useState<boolean>(false)
   const [points,setPoints] = useState<number>(0)
-
+  const [isLoading,setIsLoading] = useState<boolean>(true)
   const [applePosition,setApplePosition] = useState<Position>(() => {
     // initial apple position
+    setIsLoading(false)
     let randomBottom = Math.floor((Math.random() * 700));
     let adjustBottom = Math.round(randomBottom / 50) * 50;
     let randomLeft = Math.floor((Math.random() * 1150));
@@ -32,11 +34,10 @@ function App() {
       left:adjustLeft
     }
   });
-
   const [snakeLength, setSnakeLength] = useState<Position[]>([]);
   const [previousDirection,setPreviousDirection] = useState<string>('')
-
   const timerRef = useRef<number | undefined>();
+
   let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points)
   let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points)
   let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points)
@@ -79,7 +80,10 @@ function App() {
     <div>
       <h1>snake game</h1>
       <h3>Points: {points}</h3>
-     {!gameOver ? (
+
+      {isLoading && <Loader />}
+
+     {!gameOver && !isLoading ? (
       <Container>
       <AllSquares />
       <SnakeHead position={position} setGameOver={setGameOver} snakeLength={snakeLength} />
@@ -92,7 +96,10 @@ function App() {
       setPoints={setPoints}
       />
       </Container>
-     ) : <GameOver />}
+     ) : null}
+
+     {gameOver && <GameOver />}
+
     </div>
   )
 }
