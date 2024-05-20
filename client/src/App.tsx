@@ -79,9 +79,9 @@ function App() {
 
   return (
     <div>
-      <h1>snake game</h1>
-      <h3>Points: {points}</h3>
-      <h3>Level of Difficulty: {difficulty}</h3>
+      <h1 style={ {textAlign: 'center'} }>snake game</h1>
+      <h3 style={ {textAlign: 'center'} }>Points: {points}</h3>
+      <h3 style={ {textAlign: 'center'} }>Level of Difficulty: {difficulty}</h3>
 
       {isLoading && <Loader />}
 
@@ -100,7 +100,15 @@ function App() {
       </Container>
      ) : null}
 
-     {gameOver && <GameOver />}
+     {gameOver && <GameOver
+     setPosition={setPosition}
+     setGameOver={setGameOver}
+     setPoints={setPoints}
+     setPreviousDirection={setPreviousDirection}
+     setSnakeLength={setSnakeLength}
+     setDifficulty={setDifficulty}
+     timerRef={timerRef}
+     />}
 
     </div>
   )
