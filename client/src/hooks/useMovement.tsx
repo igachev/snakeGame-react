@@ -8,7 +8,8 @@ export function useMovement(
   timerRef: React.MutableRefObject<number | undefined>,
   setSnakeLength: React.Dispatch<React.SetStateAction<Position[]>>,
   setPreviousDirection: React.Dispatch<React.SetStateAction<string>>,
-  previousDirection: string
+  previousDirection: string,
+  points: number
 ) {
 
   function move(e: KeyboardEvent) {
@@ -96,7 +97,26 @@ export function useMovement(
 
       }
 
-      timerRef.current = setInterval(movement, 500);
+      // the snake's speed will increase based on current points
+      if(points >= 0 && points <= 300) {
+        timerRef.current = setInterval(movement, 400);
+      }
+      else if(points > 300 && points <= 600) {
+        timerRef.current = setInterval(movement, 350);
+      }
+      else if(points > 600 && points <= 900) {
+        timerRef.current = setInterval(movement, 250);
+      }
+      else if(points > 900 && points <= 1200) {
+        timerRef.current = setInterval(movement, 200);
+      }
+      else if(points > 1200 && points <= 1500) {
+        timerRef.current = setInterval(movement, 150);
+      }
+      else if(points > 1500) {
+        timerRef.current = setInterval(movement, 100);
+      }
+      
     }
   }
 
