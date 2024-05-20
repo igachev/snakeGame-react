@@ -36,12 +36,13 @@ function App() {
   });
   const [snakeLength, setSnakeLength] = useState<Position[]>([]);
   const [previousDirection,setPreviousDirection] = useState<string>('')
+  const [difficulty,setDifficulty] = useState<number>(1)
   const timerRef = useRef<number | undefined>();
 
-  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points)
-  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points)
-  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points)
-  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points)
+  let moveUp = useMovement('ArrowUp','up',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points,setDifficulty)
+  let moveDown = useMovement('ArrowDown','down',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points,setDifficulty)
+  let moveLeft = useMovement('ArrowLeft','left',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points,setDifficulty)
+  let moveRight = useMovement('ArrowRight','right',setPosition,timerRef,setSnakeLength,setPreviousDirection,previousDirection,points,setDifficulty)
   
   // useEffect() for moving the snake up
   useEffect(() => {
@@ -80,6 +81,7 @@ function App() {
     <div>
       <h1>snake game</h1>
       <h3>Points: {points}</h3>
+      <h3>Level of Difficulty: {difficulty}</h3>
 
       {isLoading && <Loader />}
 

@@ -9,7 +9,8 @@ export function useMovement(
   setSnakeLength: React.Dispatch<React.SetStateAction<Position[]>>,
   setPreviousDirection: React.Dispatch<React.SetStateAction<string>>,
   previousDirection: string,
-  points: number
+  points: number,
+  setDifficulty: React.Dispatch<React.SetStateAction<number>>
 ) {
 
   function move(e: KeyboardEvent) {
@@ -100,21 +101,27 @@ export function useMovement(
       // the snake's speed will increase based on current points
       if(points >= 0 && points <= 300) {
         timerRef.current = setInterval(movement, 400);
+        setDifficulty((previousDifficulty) => previousDifficulty !== 1 ? 1 : previousDifficulty)
       }
       else if(points > 300 && points <= 600) {
         timerRef.current = setInterval(movement, 350);
+        setDifficulty((previousDifficulty) => previousDifficulty !== 2 ? 2 : previousDifficulty)
       }
       else if(points > 600 && points <= 900) {
         timerRef.current = setInterval(movement, 250);
+        setDifficulty((previousDifficulty) => previousDifficulty !== 3 ? 3 : previousDifficulty)
       }
       else if(points > 900 && points <= 1200) {
         timerRef.current = setInterval(movement, 200);
+        setDifficulty((previousDifficulty) => previousDifficulty !== 4 ? 4 : previousDifficulty)
       }
       else if(points > 1200 && points <= 1500) {
         timerRef.current = setInterval(movement, 150);
+        setDifficulty((previousDifficulty) => previousDifficulty !== 5 ? 5 : previousDifficulty)
       }
       else if(points > 1500) {
         timerRef.current = setInterval(movement, 100);
+        setDifficulty((previousDifficulty) => previousDifficulty !== 6 ? 6 : previousDifficulty)
       }
       
     }
