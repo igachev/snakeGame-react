@@ -74,15 +74,6 @@ function App() {
     }
   },[position])
 
-  // useEffect() to update snakeHead DOM element when the position changes
-  useEffect(() => {
-    let snakeHead = document.querySelector('.snake-head') as HTMLDivElement;
-    snakeHead.style.bottom = `${position.bottom}px`;
-    snakeHead.style.left = `${position.left}px`;
-  }, [position]);
-
-  
- 
 
   return (
     <div>

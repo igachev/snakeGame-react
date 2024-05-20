@@ -43,7 +43,7 @@ export default function SnakeHead({
     },[position])
 
     return (
-            <div className="snake-head">
+            <div className="snake-head" style={ {bottom: position.bottom, left: position.left} }>
                
             </div> 
     )

@@ -19,12 +19,7 @@ export default function Apple({
     setPoints
 }: AppleProps) {
 
-    // updates the apple DOM element when apple position changes
-    useEffect(() => {
-        const apple = document.querySelector('.apple') as HTMLDivElement;
-        apple.style.bottom = `${applePosition.bottom}px`;
-        apple.style.left = `${applePosition.left}px`;
-  },[applePosition])
+   
 
     // checks if apple is eaten.If the apple has been eaten it will appear at a new position
     useEffect(() => {
@@ -32,16 +27,18 @@ export default function Apple({
     },[position])
 
     function onEatenApple(): void {
-    const snakeHead = document.querySelector('.snake-head') as HTMLDivElement;
-    const snakeHeadBottom = parseInt(getComputedStyle(snakeHead).getPropertyValue('bottom'));
-    const snakeHeadLeft = parseInt(getComputedStyle(snakeHead).getPropertyValue('left'));
+   // current snake coordinates
+    const snakeHeadBottom = position.bottom;
+    const snakeHeadLeft = position.left;
 
     const apple = document.querySelector('.apple') as HTMLDivElement;
-    const appleBottom = parseInt(getComputedStyle(apple).getPropertyValue('bottom'))
-    const appleLeft = parseInt(getComputedStyle(apple).getPropertyValue('left'))
+    // current apple coordinates
+    const appleBottom = applePosition.bottom
+    const appleLeft = applePosition.left
 
     if(snakeHeadBottom === appleBottom && snakeHeadLeft === appleLeft) {
      
+    // new apple coordinates
     let randomBottom = Math.floor((Math.random() * 700));
     let adjustBottom = Math.round(randomBottom / 50) * 50;
     let randomLeft = Math.floor((Math.random() * 1150));
@@ -98,7 +95,9 @@ export default function Apple({
 
 
     return (
-        <div className="apple" dangerouslySetInnerHTML={{ __html: randomFruit() }}>
+        <div className="apple"
+        style={ {bottom: applePosition.bottom, left: applePosition.left} } 
+        dangerouslySetInnerHTML={{ __html: randomFruit() }}>
        
         </div>
     )
