@@ -1,0 +1,30 @@
+
+h3 {
+    text-align: center;
+}
+
+span {
+    font-size: 30px;
+    margin-left: 10px;
+    color: brown;
+}
+
+h5 {
+    font-size: 16px;
+}
+
+.instructions {
+    display: flex;
+    justify-content: space-around;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+  }
+  
+  td, th {
+    border: 1px solid brown;
+    text-align: left;
+    padding: 8px;
+  }

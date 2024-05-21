@@ -9,6 +9,7 @@ import Apple from './components/Apple/Apple'
 import GameOver from './components/GameOver/GameOver'
 import SnakeBody from './components/SnakeBody/SnakeBody'
 import Loader from './components/Loader/Loader'
+import Instructions from './components/Instructions/Instructions'
 
 
 export interface Position {
@@ -79,13 +80,14 @@ function App() {
 
   return (
     <div>
-      <h1 style={ {textAlign: 'center'} }>snake game</h1>
-      <h3 style={ {textAlign: 'center'} }>Points: {points}</h3>
-      <h3 style={ {textAlign: 'center'} }>Level of Difficulty: {difficulty}</h3>
+      <h2 style={ {textAlign: 'center', margin: '0px', padding: '0px',textTransform: 'uppercase' } }>snake game</h2>
+      <h3 style={ {textAlign: 'center', margin: '0px', padding: '0px' } }>Points: {points}</h3>
+      <h3 style={ {textAlign: 'center', margin: '0px', padding: '0px' } }>Level of Difficulty: {difficulty}</h3>
 
       {isLoading && <Loader />}
 
      {!gameOver && !isLoading ? (
+      <>
       <Container>
       <AllSquares />
       <SnakeHead position={position} setGameOver={setGameOver} snakeLength={snakeLength} />
@@ -98,6 +100,8 @@ function App() {
       setPoints={setPoints}
       />
       </Container>
+      <Instructions />
+      </>
      ) : null}
 
      {gameOver && <GameOver
